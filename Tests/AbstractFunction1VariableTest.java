@@ -161,7 +161,6 @@ public class AbstractFunction1VariableTest {
 
     @Test
     public void getValue_moduleOfX_rightValuesReturned() {
-        final double n = 2000 * random.nextDouble() - 1000;
         double x = 2000 * random.nextDouble() - 1000;
         double expected, actual;
         final AbstractFunction1VariableStub function = new AbstractFunction1VariableStub("|x|");
@@ -212,6 +211,30 @@ public class AbstractFunction1VariableTest {
 
             assertEquals(expected, actual);
         }
+    }
+
+    @Test
+    public void appendToArray_appendToArray_appendedToArray() {
+        final String[] startArray = { "a", "a", "a", "a" };
+        final String[] expected = { "a", "a", "a", "a", "b" };
+        String[] actual;
+        String element = "b";
+
+        actual = AbstractFunction1VariableStub.appendToArray(startArray, element);
+
+        for (int i = 0; i < actual.length; i++) {
+            assertEquals(expected[i], actual[i]);
+        }
+    }
+
+    @Test
+    public void removeExtraSpaces_removeExtraSpaces_extraSpacesRemoved() {
+        final String startString = "              3            +                 4           3                           6             4      x                                       ";
+        final String expected = "3 + 4364x";
+
+        String actual = new AbstractFunction1VariableStub("").removeExtraSpaces(startString);
+
+        assertEquals(expected, actual);
     }
 
     /**
