@@ -1,11 +1,15 @@
 package Tests;
 
 import java.util.Random;
+import java.util.Vector;
+
 import static java.lang.Math.pow;
 import static java.lang.Math.abs;
 import static java.lang.Math.log;
 
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -232,10 +236,77 @@ public class AbstractFunction1VariableTest {
         final String startString = "              3            +                 4           3                           6             4      x                                       ";
         final String expected = "3 + 4364x";
 
-        String actual = new AbstractFunction1VariableStub("").removeExtraSpaces(startString);
+        String actual = AbstractFunction1VariableStub.removeExtraSpaces(startString);
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void getIndexesOfDoubleSpaces_getIndexesOfDoubleSpaces_indexesReturned() {
+        final String expression = "  x  +    3   ";
+        final int[] expected = { 1, 4, 7, 8, 9, 12, 13 };
+        Vector<Integer> actual;
+
+        actual = AbstractFunction1VariableStub.getIndexesOfDoubleSpaces(expression);
+
+        assertTrue(identicalElements(expected, actual));
+    }
+
+    @Test
+    public void getIndexesOfStartEndSpaces_getIndexesOfStartEndSpaces_indexesReturned() {
+        final String string = "      1 ";
+        final int[] expected = { 0, 1, 2, 3, 4, 5, 7 };
+        Vector<Integer> actual;
+
+        actual = AbstractFunction1VariableStub.getIndexesOfStartEndSpaces(string);
+
+        assertTrue(identicalElements(expected, actual));
+    }
+
+    @Test
+    public void getIndexesOfStartEndSpaces_giveStringFromOnlySpaces_allIndexesReturned() {
+        final String string = "            ";
+        final int[] expected = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+        Vector<Integer> actual;
+
+        actual = AbstractFunction1VariableStub.getIndexesOfStartEndSpaces(string);
+
+        assertTrue(identicalElements(expected, actual));
+    }
+
+    @Test
+    public void getIndexesOfStartEndSpaces_giveEmptyString_anyIndexesNotReturned() {
+        final String string = "";
+        Vector<Integer> result;
+
+        result = AbstractFunction1VariableStub.getIndexesOfStartEndSpaces(string);
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void getIndexesOfExtraSpacesNearBrackets_getIndexesOfExtraSpacesNearBrackets_indexesReturned() {
+        final String string = "( 1 +1   *3    )*(  3   ^  4    )";
+        final int[] expected = { 1, 11, 12, 13, 14, 18, 19, 28, 29, 30, 31 };
+        Vector<Integer> actual;
+
+        actual = AbstractFunction1VariableStub.getIndexesOfExtraSpacesNearBrackets(string);
+
+        assertTrue(identicalElements(expected, actual));
+    }
+
+    @Test
+    public void getIndexesOfSpacesInNumbers() {
+        final String string = "3  2454    35 6       +      43   6 5 4 7  4";
+        final int[] expected = { 1, 2, 7, 8, 9, 10, 13, 31, 32, 33, 35, 37, 39, 41, 42 };
+        Vector<Integer> actual;
+
+        actual = AbstractFunction1VariableStub.getIndexesOfSpacesInNumbers(string);
+
+        assertTrue(identicalElements(expected, actual));
+    }
+
+    //
 
     /**
      * Returns logarithm base {@code base} of {@code value}
@@ -246,5 +317,28 @@ public class AbstractFunction1VariableTest {
      */
     public static double customLog(double base, double value) {
         return log(value) / log(base);
+    }
+
+    public static boolean identicalElements(int[] array, Vector<Integer> vector) {
+        for (int i : array) {
+            if (!vector.contains(i)) {
+                return false;
+            }
+        }
+        for (int i : vector) {
+            if (!arrayContains(array, i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean arrayContains(int[] array, int element) {
+        for (int i : array) {
+            if (i == element) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -2,6 +2,7 @@
 This program should write graph of assigned function and do something other.
 
 ## Using
+- 1 or 1.2 or 1,2 is numbers
 - 1 + 2
 - 1 - 2
 - 1 * 2

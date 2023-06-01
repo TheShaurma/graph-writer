@@ -13,37 +13,31 @@ public class AbstractFunction1VariableStub extends AbstractFunction1Variable {
         super(mathematicalExpression);
     }
 
-    @Override
-    public String removeExtraSpaces(String expression) {
-        return super.removeExtraSpaces(expression);
+    public static String removeExtraSpaces(String expression) {
+        return AbstractFunction1Variable.removeExtraSpaces(expression);
     }
 
-    @Override
-    public String[] convertToComponents(String expression) {
-        return super.convertToComponents(expression);
+    public static String[] convertToComponents(String expression) {
+        return AbstractFunction1Variable.convertToComponents(expression);
     }
 
     public static String[] appendToArray(String[] array, String element) {
         return AbstractFunction1Variable.appendToArray(array, element);
     }
 
-    @Override
-    public Vector<Integer> getIndexesOfDoubleSpaces(String expression) {
-        return super.getIndexesOfDoubleSpaces(expression);
+    public static Vector<Integer> getIndexesOfDoubleSpaces(String expression) {
+        return AbstractFunction1Variable.getIndexesOfDoubleSpaces(expression);
     }
 
-    @Override
-    public Vector<Integer> getIndexesOfStartEndSpaces(String expression) {
-        return super.getIndexesOfStartEndSpaces(expression);
+    public static Vector<Integer> getIndexesOfStartEndSpaces(String expression) {
+        return AbstractFunction1Variable.getIndexesOfStartEndSpaces(expression);
     }
 
-    @Override
-    public Vector<Integer> getIndexesOfSpacesInNumbers(String expression) {
-        return super.getIndexesOfSpacesInNumbers(expression);
+    public static Vector<Integer> getIndexesOfSpacesInNumbers(String expression) {
+        return AbstractFunction1Variable.getIndexesOfSpacesInNumbers(expression);
     }
 
-    @Override
-    public Vector<Integer> getIndexesOfExtraSpacesNearBrackets(String expression) {
-        return super.getIndexesOfExtraSpacesNearBrackets(expression);
+    public static Vector<Integer> getIndexesOfExtraSpacesNearBrackets(String expression) {
+        return AbstractFunction1Variable.getIndexesOfExtraSpacesNearBrackets(expression);
     }
 }
