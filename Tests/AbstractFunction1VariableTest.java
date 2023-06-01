@@ -1,5 +1,7 @@
 package Tests;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Vector;
 
@@ -254,8 +256,8 @@ public class AbstractFunction1VariableTest {
 
     @Test
     public void getIndexesOfStartEndSpaces_getIndexesOfStartEndSpaces_indexesReturned() {
-        final String string = "      1 ";
-        final int[] expected = { 0, 1, 2, 3, 4, 5, 7 };
+        final String string = "  4   1 ";
+        final int[] expected = { 0, 1, 7 };
         Vector<Integer> actual;
 
         actual = AbstractFunction1VariableStub.getIndexesOfStartEndSpaces(string);
@@ -297,13 +299,27 @@ public class AbstractFunction1VariableTest {
 
     @Test
     public void getIndexesOfSpacesInNumbers() {
-        final String string = "3  2454    35 6       +      43   6 5 4 7  4";
+        final String string = "3  2454    x5 .       +      X3   , 5 4 7  4";
         final int[] expected = { 1, 2, 7, 8, 9, 10, 13, 31, 32, 33, 35, 37, 39, 41, 42 };
         Vector<Integer> actual;
 
         actual = AbstractFunction1VariableStub.getIndexesOfSpacesInNumbers(string);
 
         assertTrue(identicalElements(expected, actual));
+    }
+
+    @Test
+    public void removeIndexesFromString_removeIndexesFromString_charactersFromIndexesRemoved() {
+        final String string = "*12****78*01**4*6**9*";
+        // Integer, not int:
+        final Integer[] indexes = { 0, 3, 4, 5, 6, 9, 12, 13, 15, 17, 18, 20 };
+        Vector<Integer> indexesVector = new Vector<Integer>(Arrays.asList(indexes));
+        final String expected = "127801469";
+        String actual;
+
+        actual = AbstractFunction1VariableStub.removeIndexesFromString(string, indexesVector);
+
+        assertEquals(expected, actual);
     }
 
     //

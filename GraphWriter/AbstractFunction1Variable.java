@@ -131,7 +131,7 @@ public abstract class AbstractFunction1Variable implements Function1Variable {
      * @return vector of indexes
      */
     protected static Vector<Integer> getIndexesOfDoubleSpaces(String expression) {
-        Vector<Integer> result = new Vector<>();
+        final Vector<Integer> result = new Vector<>();
         for (int i = 1; i < expression.length(); i++) {
             if (expression.charAt(i) == ' '
                     && expression.charAt(i - 1) == ' ') {
@@ -156,16 +156,20 @@ public abstract class AbstractFunction1Variable implements Function1Variable {
             return new Vector<>();
         }
 
-        Vector<Integer> result = new Vector<>();
+        final Vector<Integer> result = new Vector<>();
 
         for (int i = 0; i < expression.length(); i++) {
             if (expression.charAt(i) == ' ') {
                 result.add(i);
+            } else {
+                break;
             }
         }
         for (int i = expression.length() - 1; i > -1; i--) {
             if (expression.charAt(i) == ' ') {
                 result.add(i);
+            } else {
+                break;
             }
         }
 
@@ -182,8 +186,7 @@ public abstract class AbstractFunction1Variable implements Function1Variable {
      * @return vector of indexes
      */
     protected static Vector<Integer> getIndexesOfExtraSpacesNearBrackets(String expression) {
-        // TODO: create
-        Vector<Integer> result = new Vector<>();
+        final Vector<Integer> result = new Vector<>();
 
         for (int i = 0; i < expression.length(); i++) {
             if (expression.charAt(i) == '(') {
@@ -195,7 +198,7 @@ public abstract class AbstractFunction1Variable implements Function1Variable {
                         break;
                     }
                 }
-                i = j;
+                i = j - 1;
             }
         }
 
@@ -226,8 +229,26 @@ public abstract class AbstractFunction1Variable implements Function1Variable {
      * @return vector of indexes
      */
     protected static Vector<Integer> getIndexesOfSpacesInNumbers(String expression) {
-        // TODO: create
-        return null;
+        final Vector<Integer> result = new Vector<>();
+
+        for (int i = 0; i < expression.length(); i++) {
+            if (isNumberCharacter(expression.charAt(i))) {
+                int j;
+                final Vector<Integer> intermediateResult = new Vector<>();
+                for (j = i + 1; j < expression.length(); j++) {
+                    if (expression.charAt(j) == ' ') {
+                        intermediateResult.add(j);
+                    } else if (isNumberCharacter(expression.charAt(j))) {
+                        result.addAll(intermediateResult);
+                    } else {
+                        break;
+                    }
+                }
+                i = j - 1;
+            }
+        }
+
+        return result;
     }
 
     /**
@@ -235,15 +256,15 @@ public abstract class AbstractFunction1Variable implements Function1Variable {
      * {@code indexes} is vector which can contains one index twice or more.
      * Index'es order can be accidental.
      * 
-     * @param expression
+     * @param string
      * @param indexes
      * @return
      */
-    protected static String removeIndexesFromString(String expression, Vector<Integer> indexes) {
+    protected static String removeIndexesFromString(String string, Vector<Integer> indexes) {
         String result = "";
-        for (int i = 0; i < expression.length(); i++) {
+        for (int i = 0; i < string.length(); i++) {
             if (!indexes.contains(i)) {
-                result += expression.charAt(i);
+                result += string.charAt(i);
             }
         }
 
@@ -263,5 +284,17 @@ public abstract class AbstractFunction1Variable implements Function1Variable {
         newArray[array.length] = element;
 
         return newArray;
+    }
+
+    private static boolean isNumberCharacter(char ch) {
+        if (ch == '0' || ch == '1' || ch == '2'
+                || ch == '3' || ch == '4' || ch == '5'
+                || ch == '6' || ch == '7' || ch == '8'
+                || ch == '9' || ch == '.' || ch == ','
+                || ch == 'x' || ch == 'X') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

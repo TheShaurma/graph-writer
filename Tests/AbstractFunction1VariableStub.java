@@ -40,4 +40,8 @@ public class AbstractFunction1VariableStub extends AbstractFunction1Variable {
     public static Vector<Integer> getIndexesOfExtraSpacesNearBrackets(String expression) {
         return AbstractFunction1Variable.getIndexesOfExtraSpacesNearBrackets(expression);
     }
+
+    public static String removeIndexesFromString(String string, Vector<Integer> indexes) {
+        return AbstractFunction1Variable.removeIndexesFromString(string, indexes);
+    }
 }
